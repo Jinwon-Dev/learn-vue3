@@ -1,24 +1,32 @@
 <template>
-	<div class="card">
-		<div class="card-body">
-			<h5 class="card-title">Card title</h5>
-			<p class="card-text">
+	<div className="card">
+		<div className="card-body">
+			<h5 className="card-title red">Card title</h5>
+			<p className="card-text">
 				Some quick example text to build on the card title and make up the bulk
 				of the card's content.
 			</p>
-			<a href="#" class="btn btn-primary">Go somewhere</a>
+			<a href="#" className="btn btn-primary">Go somewhere</a>
 		</div>
 	</div>
 </template>
 
 <script>
-console.log("AppCard module");
+import { ref } from "vue";
+
+console.log("AppCard Module");
 export default {
 	setup() {
 		console.log("AppCard setup()");
-		return {};
+		const color = ref("red");
+		color.value = "blue";
+		return { color };
 	},
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.red {
+	color: v-bind(color) !important;
+}
+</style>
