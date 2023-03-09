@@ -1,6 +1,10 @@
 <template>
 	<main>
 		<div class="container py-4">
+			<PostCreate @create-post="createPost"></PostCreate>
+
+			<hr class="my-4" />
+
 			<div class="row g-3">
 				<div v-for="post in posts" :key="post.id" class="col col-4">
 					<AppCard
@@ -9,29 +13,57 @@
 						:type="post.type"
 						:is-like="post.isLike"
 						@toggle-like="post.isLike = !post.isLike"
-						:obj="obj"
 					></AppCard>
 				</div>
 			</div>
+
+			<hr class="my-4" />
+			<LabelInput v-model="username" label="이름"></LabelInput>
+			<LabelTitle v-model:title="username" label="제목"></LabelTitle>
+			<Username
+				v-model:firstname="firstname"
+				v-model:lastname="lastname"
+			></Username>
 		</div>
 	</main>
 </template>
 
 <script>
 import AppCard from "@/components/AppCard.vue";
-import { reactive } from "vue";
+import PostCreate from "@/components/PostCreate.vue";
+import LabelInput from "@/components/LabelInput.vue";
+import LabelTitle from "@/components/LabelTitle.vue";
+import { reactive, ref } from "vue";
+import Username from "@/components/Username.vue";
 
 export default {
-	components: { AppCard },
+	components: {
+		Username,
+		LabelInput,
+		PostCreate,
+		AppCard,
+		LabelTitle,
+	},
 	setup() {
-		const obj = reactive({
+		const post = reactive({
 			title: "제목2",
 			contents: "내용2",
 		});
-
 		const posts = reactive([
-			{ id: 1, title: "제목1", contents: "내용1", isLike: true, type: "news" },
-			{ id: 2, title: "제목2", contents: "내용2", isLike: true, type: "news" },
+			{
+				id: 1,
+				title: "제목1",
+				contents: "내용1",
+				isLike: true,
+				type: "news",
+			},
+			{
+				id: 2,
+				title: "제목1",
+				contents: "내용2",
+				isLike: true,
+				type: "news",
+			},
 			{ id: 3, title: "제목3", contents: "내용3", isLike: true, type: "news" },
 			{
 				id: 4,
@@ -49,7 +81,15 @@ export default {
 			},
 		]);
 
-		return { obj, posts };
+		const createPost = newPost => {
+			console.log("newPost: ", newPost);
+			posts.push(newPost);
+		};
+
+		const username = ref("");
+		const firstname = ref("");
+		const lastname = ref("");
+		return { post, posts, createPost, username, firstname, lastname };
 	},
 };
 </script>
