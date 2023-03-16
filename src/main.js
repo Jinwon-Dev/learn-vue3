@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createApp } from "vue";
 import App from "./App.vue";
 import "bootstrap/dist/js/bootstrap";
-import AppCard from "@/components/AppCard.vue";
+import AppCard from "@/components/PostItem.vue";
 
 const app = createApp(App);
 
